@@ -1,0 +1,38 @@
+<?php
+// $Id$
+/**
+ * @file
+ * Gives the ability to export to excel
+ */
+
+/**
+ * Implementation of hook_perm().
+ */
+function views_export_xls_perm() {
+  return array('xls export views');
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function views_export_xls_views_api() {
+  return array(
+    'api' => 2,
+  );
+}
+
+/**
+ * Preprocess xls output template.
+ */
+function template_preprocess_views_export_xls_file(&$vars) {
+  //call preproccess
+  _views_bonus_export_shared_preprocess(&$vars);
+  
+  
+  //stip tags and make utf8 decode
+  foreach ($vars['themed_rows'] as $i => $values) {
+    foreach ($values as $j => $value) {
+      $vars['themed_rows'][$i][$j] = utf8_decode(strip_tags($value));
+    }
+  }
+}
