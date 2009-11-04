@@ -2,7 +2,6 @@
 name = Views Export xls
 description = "Plugin to export views to XLS"
 dependencies[] = views 
-dependencies[] = views_bonus_export
 package = Views
 core = 6.x
 

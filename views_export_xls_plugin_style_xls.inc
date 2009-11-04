@@ -10,7 +10,7 @@
  *
  * @ingroup views_style_plugins
  */
-class views_export_xls_style extends views_bonus_plugin_style_export {
+class views_export_xls_plugin_style_xls extends views_plugin_style {
 
   /**
    * Initialize plugin.
@@ -19,10 +19,25 @@ class views_export_xls_style extends views_bonus_plugin_style_export {
    */
   function init(&$view, &$display, $options = NULL) {
     parent::init($view, $display, $options = NULL);
-    $this->feed_image = drupal_get_path('module', 'views_bonus_export') . '/images/xls-icon.jpg';
-  }	
-	
-	
+    $this->feed_image = drupal_get_path('module', 'views_export_xls') . '/images/xls-icon.jpg';
+  }
+
+	/**
+	 * Attach this view to another display as a feed.
+	 *
+	 * Provide basic functionality for all export style views like attaching a
+	 * feed image link.
+	 */
+	function attach_to($display_id, $path, $title) {
+
+    $url_options = array('html' => true);
+    $input = $this->view->get_exposed_input();
+    if ($input) {
+      $url_options['query'] = $input;
+    }
+    $image = theme('image', $this->feed_image);
+    $this->view->feed_icon .= l($image, $this->view->get_url(NULL, $path), $url_options);
+  }
   /**
    * Set options fields and default values.
    *
@@ -37,6 +52,11 @@ class views_export_xls_style extends views_bonus_plugin_style_export {
       'translatable' => FALSE,
     );
 
+    /*$options['encoding'] = array(
+     'default' => 'utf-8',
+     'translatable' => FALSE,
+     );*/
+
     return $options;
   }
 
@@ -47,17 +67,24 @@ class views_export_xls_style extends views_bonus_plugin_style_export {
    * Form array to add additional fields to.
    * @param $form_state
    * State of the form.
-   * @return
-   * None.
-   */
+  * @return
+  * None.
+  */
   function options_form(&$form, &$form_state) {
+
     $form['filename'] = array(
       '#type' => 'textfield',
       '#title' => t('XLS filename'),
       '#default_value' => $this->options['filename'],
       '#description' => t('The filename that will be suggested to the browser for downloading purposes. %view will be replaced with the view name.'),
-      '#process' => array('views_process_dependency'),
-      '#dependency' => array('edit-style-options-override' => array(FALSE)),
     );
+
+    /*$options = array('utf-8' => t('UTF-8'), 'cp1252' => t('Western (Windows 1252)'), 'cp1251' => t('Cirillic (Windows 1251)'), 'iso-8859-1' => t('Western (ISO-8859-1)'));
+     $form['encoding'] = array(
+     '#type' => 'radios',
+     '#title' => t('File encoding'),
+     '#default_value' => $this->options['encoding'],
+     '#options' => $options,
+     );*/
   }
 }

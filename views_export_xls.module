@@ -24,8 +24,7 @@ function views_export_xls_views_api() {
 /**
  * Preprocess xls output template.
  */
-function template_preprocess_views_export_xls_file(&$vars) {
-  //call preproccess
+function template_preprocess_views_export_xls_view_xls(&$vars) {
   $view     = $vars['view'];
   $fields   = &$view->field;
 
@@ -34,9 +33,6 @@ function template_preprocess_views_export_xls_file(&$vars) {
     $vars['options']['filename'],
     array('%view' => check_plain($view->name))
   );
-  if ($filename) {
-    drupal_set_header('Content-Disposition: attachment; filename="'. $filename .'"');
-  }
 
   $rows = $vars['rows'];
 
@@ -48,23 +44,15 @@ function template_preprocess_views_export_xls_file(&$vars) {
   }
 
   $vars['themed_rows'] = array();
-  
   foreach ($rows as $num => $row) {
     $items = array();
-    foreach (array_keys($fields) as $key) {
-      if (empty($fields[$key]->options['exclude'])) {
-        $items[$key] = $fields[$key]->theme($row);
+
+    foreach ($fields as $key => $field) {
+      if (empty($field->options['exclude'])) {
+        $items[$key] = strip_tags($field->theme($row));
       }
     }
-
     $vars['themed_rows'][$num] = $items;
   }
-  
-  
-  //stip tags and make utf8 decode
-  foreach ($vars['themed_rows'] as $i => $values) {
-    foreach ($values as $j => $value) {
-      $vars['themed_rows'][$i][$j] = utf8_decode(strip_tags($value));
-    }
-  }
+  $vars['file_name'] = $filename;
 }
