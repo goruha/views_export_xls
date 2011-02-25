@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 /**
  * Simple excel generating from PHP5

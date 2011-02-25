@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 /**
  * @file views-export-xls-view-xls.tpl.php
