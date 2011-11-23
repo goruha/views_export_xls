@@ -5,18 +5,23 @@
  */
 
 /**
- * Implementation of hook_perm().
+ * Implements hook_permission().
  */
-function views_export_xls_perm() {
-  return array('xls export views');
+function views_export_xls_permission() {
+  return array(
+    'xls export views' => array(
+      'title' => t('Export views to xls'), 
+      'description' => t('Access to export feature of views to xls.'),
+    ),
+  );
 }
 
 /**
- * Implementation of hook_views_api().
+ * Implements hook_views_api().
  */
 function views_export_xls_views_api() {
   return array(
-    'api' => 2,
+    'api' => 3, 
   );
 }
 
@@ -27,7 +32,7 @@ function template_preprocess_views_export_xls_view_xls(&$vars) {
   $view     = $vars['view'];
   $fields   = &$view->field;
 
-  drupal_set_header('Cache-Control: max-age=60, must-revalidate');
+  drupal_add_http_header('Cache-Control', 'max-age=60, must-revalidate');
   $filename = strtr(
     $vars['options']['filename'],
     array('%view' => check_plain($view->name))

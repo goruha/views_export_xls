@@ -1,7 +1,12 @@
-name = Views Export xls
+name = Views Export XLS
 description = "Plugin to export views to XLS"
 dependencies[] = views 
 package = Views
-core = 6.x
+core = 7.x
+
+files[] = views_export_xls.module
+
+files[] = views/views_export_xls.views.inc
+files[] = views/views_export_xls_plugin_style_xls.inc
 
  

@@ -5,7 +5,7 @@
  */
 
 /**
- * Implementation of hook_views_plugins().
+ * Implements hook_views_plugins().
  */
 function views_export_xls_views_plugins() {
   $path = drupal_get_path('module', 'views_export_xls');
@@ -22,6 +22,8 @@ function views_export_xls_views_plugins() {
         'title' => t('XLS Feed'),
         'help' => t('Generates an XLS feed from a view.'),
         'handler' => 'views_export_xls_plugin_style_xls',
+        'path' => $path . '/views',
+        'theme path' => $path,
         'theme' => 'views_export_xls_view_xls',
         'uses fields' => TRUE,
         'uses row plugin' => FALSE,

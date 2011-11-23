@@ -21,15 +21,15 @@ class views_export_xls_plugin_style_xls extends views_plugin_style {
     $this->feed_image = drupal_get_path('module', 'views_export_xls') . '/images/xls-icon.jpg';
   }
 
-	/**
+  /**
 	 * Attach this view to another display as a feed.
 	 *
 	 * Provide basic functionality for all export style views like attaching a
 	 * feed image link.
 	 */
-	function attach_to($display_id, $path, $title) {
+  function attach_to($display_id, $path, $title) {
 
-    $url_options = array('html' => true);
+    $url_options = array('html' => TRUE);
     $input = $this->view->get_exposed_input();
     if ($input) {
       $url_options['query'] = $input;
