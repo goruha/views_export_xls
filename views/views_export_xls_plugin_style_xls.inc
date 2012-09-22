@@ -22,11 +22,11 @@ class views_export_xls_plugin_style_xls extends views_plugin_style {
   }
 
   /**
-	 * Attach this view to another display as a feed.
-	 *
-	 * Provide basic functionality for all export style views like attaching a
-	 * feed image link.
-	 */
+   * Attach this view to another display as a feed.
+   *
+   * Provide basic functionality for all export style views like attaching a
+   * feed image link.
+   */
   function attach_to($display_id, $path, $title) {
 
     $url_options = array('html' => TRUE);
@@ -34,9 +34,15 @@ class views_export_xls_plugin_style_xls extends views_plugin_style {
     if ($input) {
       $url_options['query'] = $input;
     }
-    $image = theme('image', $this->feed_image);
+    $variables = array(
+      'path' => $this->feed_image,
+      'alt' => 'Icon for xls export',
+      'title' => 'Export to xls',
+      );
+    $image = theme('image', $variables);
     $this->view->feed_icon .= l($image, $this->view->get_url(NULL, $path), $url_options);
   }
+
   /**
    * Set options fields and default values.
    *
