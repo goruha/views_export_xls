@@ -57,11 +57,6 @@ class views_export_xls_plugin_style_xls extends views_plugin_style {
       'translatable' => FALSE,
     );
 
-    /*$options['encoding'] = array(
-     'default' => 'utf-8',
-     'translatable' => FALSE,
-     );*/
-
     return $options;
   }
 
@@ -83,13 +78,5 @@ class views_export_xls_plugin_style_xls extends views_plugin_style {
       '#default_value' => $this->options['filename'],
       '#description' => t('The filename that will be suggested to the browser for downloading purposes. %view will be replaced with the view name.'),
     );
-
-    /*$options = array('utf-8' => t('UTF-8'), 'cp1252' => t('Western (Windows 1252)'), 'cp1251' => t('Cirillic (Windows 1251)'), 'iso-8859-1' => t('Western (ISO-8859-1)'));
-     $form['encoding'] = array(
-     '#type' => 'radios',
-     '#title' => t('File encoding'),
-     '#default_value' => $this->options['encoding'],
-     '#options' => $options,
-     );*/
   }
 }
