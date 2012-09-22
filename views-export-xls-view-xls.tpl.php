@@ -14,7 +14,7 @@
 
   $path = drupal_get_path('module', 'views_export_xls');
 
-  if (!$filename) {
+  if (!isset($filename) || empty($filename)) {
     $filename = $view->name . '.xls';
   }
 
