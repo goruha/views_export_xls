@@ -54,7 +54,7 @@ function template_preprocess_views_export_xls_view_xls(&$vars) {
     foreach ($fields as $key => $field) {
       if (empty($field->options['exclude'])) {
         $view->row_index = $num;
-        $items[$key] = strip_tags($field->theme($row));
+        $items[$key] = strip_tags($view->style_plugin->rendered_fields[$num][$key]);
       }
     }
     $vars['themed_rows'][$num] = $items;
