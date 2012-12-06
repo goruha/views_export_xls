@@ -23,5 +23,5 @@
 
   $xls = new Excel_XML('UTF-8', false, $view->name);
   $themed_rows = array_merge(array($header), $themed_rows);
-  $xls->addArray($themed_rows);
+  $xls->add3dArray($themed_rows);
   $xls->generateXML($file_name, true);
