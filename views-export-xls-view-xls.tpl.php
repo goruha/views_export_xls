@@ -12,16 +12,18 @@
  * @ingroup views_templates
  */
 
-  $path = drupal_get_path('module', 'views_export_xls');
-
   if (!isset($filename) || empty($filename)) {
     $filename = $view->name . '.xls';
   }
+  $filepath = drupal_tempnam("temporary://", $filename);
 
-  // include xls generatator class
-  require_once './' . $path . '/libs/php-excel.class.php';
+  $http_headers = array(
+    'Content-Type' => 'application/vnd.ms-excel',
+    'Content-Disposition' => "inline; filename=\"$filename\"",
+  );
 
-  $xls = new Excel_XML('UTF-8', false, $view->name);
-  $themed_rows = array_merge(array($header), $themed_rows);
-  $xls->add3dArray($themed_rows);
-  $xls->generateXML($file_name, true);
+  module_load_include('inc', 'phpexcel');
+  if (PHPEXCEL_SUCCESS == phpexcel_export($header, $themed_rows, $filepath)) {
+    file_transfer($filepath, $http_headers);
+  }
+  drupal_not_found();

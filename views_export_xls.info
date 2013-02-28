@@ -1,12 +1,11 @@
 name = Views Export XLS
 description = "Plugin to export views to XLS"
-dependencies[] = views 
+dependencies[] = views
+dependencies[] = phpexcel
 package = Views
 core = 7.x
-
-files[] = views_export_xls.module
+version = 7.x-2.dev
 
 files[] = views/views_export_xls.views.inc
 files[] = views/views_export_xls_plugin_style_xls.inc
 
- 
